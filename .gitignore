@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+**/target/
+**/bin/
+**/obj/
+**/__pycache__/
+**/.idea/
+**/.vscode/
+*.user
+*.log

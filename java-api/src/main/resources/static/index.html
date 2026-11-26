@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comisariato | Java</title>
+  <link rel="stylesheet" href="/menu.css">
+  <script src="/menu.js" defer></script>
+</head>
+<body>
+  <header class="encabezado">
+    <div class="contenedor">
+      <h1>Comisariato <span>Java</span></h1>
+      <div class="enlaces">
+        <a href="/swagger-ui.html">Swagger</a>
+        <a href="/actuator/health">Estado del servicio</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="contenedor distribucion">
+    <nav aria-label="Operaciones">
+      <ul>
+        <li><a href="#venta">Registrar venta</a></li>
+        <li><a href="#anulacion">Anular venta</a></li>
+        <li><a href="#stock">Consultar stock bajo</a></li>
+        <li><a href="#empleado">Ventas por empleado</a></li>
+        <li><a href="#movimientos">Movimientos por producto</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <noscript>Activa JavaScript para operar desde este menú.</noscript>
+
+      <section id="venta">
+        <h2>Registrar venta</h2>
+        <form data-operacion="venta">
+          <div class="campos">
+            <label>Número de factura
+              <input name="numeroFactura" type="text" maxlength="20" required>
+            </label>
+            <label>Empleado (ID)
+              <input name="empleadoId" type="number" min="1" max="2147483647" required>
+            </label>
+            <label>Cliente (ID, opcional)
+              <input name="clienteId" type="number" min="1" max="2147483647">
+            </label>
+            <label>Forma de pago
+              <select name="formaPago" required>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Transferencia">Transferencia</option>
+              </select>
+            </label>
+          </div>
+          <fieldset>
+            <legend>Productos de la factura</legend>
+            <div id="detalles"></div>
+            <button id="agregar" type="button" class="secundario">Agregar producto</button>
+          </fieldset>
+          <button type="submit">Registrar venta</button>
+          <p role="status"></p>
+          <pre hidden tabindex="0" aria-label="Respuesta del registro de venta"></pre>
+        </form>
+      </section>
+
+      <section id="anulacion">
+        <h2>Anular venta</h2>
+        <form data-operacion="anulacion">
+          <div class="campos">
+            <label>Venta (ID)
+              <input name="ventaId" type="number" min="1" max="2147483647" required>
+            </label>
+            <label>Empleado que anula (ID)
+              <input name="empleadoId" type="number" min="1" max="2147483647" required>
+            </label>
+          </div>
+          <button type="submit">Anular venta</button>
+          <p role="status"></p>
+          <pre hidden tabindex="0" aria-label="Respuesta de la anulación"></pre>
+        </form>
+      </section>
+
+      <section id="stock">
+        <h2>Productos con stock bajo</h2>
+        <form data-operacion="stock">
+          <button type="submit">Consultar stock bajo</button>
+          <p role="status"></p>
+          <pre hidden tabindex="0" aria-label="Lista de productos con stock bajo"></pre>
+        </form>
+      </section>
+
+      <section id="empleado">
+        <h2>Ventas por empleado</h2>
+        <form data-operacion="empleado">
+          <div class="campos">
+            <label>Empleado (ID)
+              <input name="empleadoId" type="number" min="1" max="2147483647" required>
+            </label>
+          </div>
+          <button type="submit">Consultar ventas</button>
+          <p role="status"></p>
+          <pre hidden tabindex="0" aria-label="Lista de ventas del empleado"></pre>
+        </form>
+      </section>
+
+      <section id="movimientos">
+        <h2>Movimientos por producto</h2>
+        <form data-operacion="movimientos">
+          <div class="campos">
+            <label>Producto (ID)
+              <input name="productoId" type="number" min="1" max="2147483647" required>
+            </label>
+          </div>
+          <button type="submit">Consultar movimientos</button>
+          <p role="status"></p>
+          <pre hidden tabindex="0" aria-label="Lista de movimientos del producto"></pre>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <template id="linea">
+    <div class="detalle">
+      <label>Producto (ID)
+        <input data-producto type="number" min="1" max="2147483647" required>
+      </label>
+      <label>Cantidad
+        <input data-cantidad type="number" min="1" max="2147483647" value="1" required>
+      </label>
+      <button type="button" class="secundario" data-quitar>Quitar</button>
+    </div>
+  </template>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comisariato | API .NET</title>
+  <link rel="stylesheet" href="/menu.css">
+  <script src="/menu.js" defer></script>
+</head>
+<body>
+  <a href="#operaciones" class="skip">Ir a las operaciones</a>
+  <header>
+    <div class="header-inner">
+      <div>
+        <p class="subtitle">Ventas e inventario · API .NET</p>
+        <h1>Comisariato</h1>
+      </div>
+      <nav class="resources" aria-label="Recursos de la API">
+        <a href="/swagger/">Swagger</a>
+        <a href="/health">Estado de la base</a>
+      </nav>
+    </div>
+  </header>
+  <main id="operaciones">
+    <nav class="operations" aria-label="Operaciones">
+      <a href="#registrar">Registrar venta</a>
+      <a href="#anular">Anular venta</a>
+      <a href="#stock">Stock bajo</a>
+      <a href="#ventas-empleado">Ventas por empleado</a>
+      <a href="#movimientos">Movimientos por producto</a>
+    </nav>
+    <div class="operation-grid">
+      <section id="registrar" class="wide" aria-labelledby="registrar-title">
+        <h2 id="registrar-title">Registrar venta</h2>
+        <form id="venta-form">
+          <div class="details">
+            <label>Número de factura
+              <input name="numeroFactura" maxlength="20" required>
+            </label>
+            <label>Identificador del empleado
+              <input name="empleadoId" type="number" min="1" max="2147483647" required>
+            </label>
+            <label>Identificador del cliente <small>(opcional)</small>
+              <input name="clienteId" type="number" min="1" max="2147483647">
+            </label>
+            <label>Forma de pago
+              <select name="formaPago" required>
+                <option>Efectivo</option>
+                <option>Tarjeta</option>
+                <option>Transferencia</option>
+              </select>
+            </label>
+          </div>
+          <fieldset>
+            <legend>Productos de la factura</legend>
+            <div id="lineas"></div>
+            <button type="button" class="secondary" id="agregar">Agregar producto</button>
+          </fieldset>
+          <button type="submit">Registrar venta</button>
+        </form>
+        <p class="status" role="status"></p>
+        <pre class="result" hidden></pre>
+      </section>
+
+      <section id="anular" aria-labelledby="anular-title">
+        <h2 id="anular-title">Anular venta</h2>
+        <form id="anulacion-form">
+          <div class="details">
+            <label>Identificador de la venta
+              <input name="ventaId" type="number" min="1" max="2147483647" required>
+            </label>
+            <label>Identificador del empleado
+              <input name="empleadoId" type="number" min="1" max="2147483647" required>
+            </label>
+          </div>
+          <button type="submit">Anular venta</button>
+        </form>
+        <p class="status" role="status"></p>
+        <pre class="result" hidden></pre>
+      </section>
+
+      <section id="stock" aria-labelledby="stock-title">
+        <h2 id="stock-title">Productos con stock bajo</h2>
+        <form id="stock-form">
+          <button type="submit">Consultar stock bajo</button>
+        </form>
+        <p class="status" role="status"></p>
+        <pre class="result" hidden></pre>
+      </section>
+
+      <section id="ventas-empleado" aria-labelledby="empleado-title">
+        <h2 id="empleado-title">Ventas por empleado</h2>
+        <form id="empleado-form">
+          <label>Identificador del empleado
+            <input name="empleadoId" type="number" min="1" max="2147483647" required>
+          </label>
+          <button type="submit">Consultar ventas</button>
+        </form>
+        <p class="status" role="status"></p>
+        <pre class="result" hidden></pre>
+      </section>
+
+      <section id="movimientos" aria-labelledby="movimientos-title">
+        <h2 id="movimientos-title">Movimientos por producto</h2>
+        <form id="movimientos-form">
+          <label>Identificador del producto
+            <input name="productoId" type="number" min="1" max="2147483647" required>
+          </label>
+          <button type="submit">Consultar movimientos</button>
+        </form>
+        <p class="status" role="status"></p>
+        <pre class="result" hidden></pre>
+      </section>
+    </div>
+  </main>
+
+  <template id="plantilla-linea">
+    <div class="linea">
+      <label>Identificador del producto
+        <input name="productoId" type="number" min="1" max="2147483647" required>
+      </label>
+      <label>Cantidad
+        <input name="cantidad" type="number" min="1" max="2147483647" value="1" required>
+      </label>
+      <button type="button" class="remove">Quitar producto</button>
+    </div>
+  </template>
+</body>
+</html>
